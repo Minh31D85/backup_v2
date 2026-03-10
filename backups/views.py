@@ -214,3 +214,55 @@ class BackupImportView(APIView):
         return Response(obj, status=status.HTTP_200_OK)
     
 
+class BackupDeleteView(APIView):
+    authentication_classes = [BackupAuth]
+
+    def post(self, request):
+        rel_path = request.data.get("path")
+
+        if not rel_path:
+            return Response({"message": "Missing field: path"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        root = Path(settings.BACKUP_ROOT).resolve()
+        file_path = (root / rel_path).reslove()
+
+        if not file_path.exists():
+            return Response({"File not found"}, status=status.HTTP_404_NOT_FOUND)
+        
+        if not str(file_path).startswith(str(root)):
+            return Response({"message": "Invalid path"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        if file_path.suffix != ".json":
+            return Response({"message": "Invalid file type"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        file_path.unlink()
+
+        return Response({"message": "delete", "path": rel_path}, status=status.HTTP_200_OK )
+    
+
+class BackupGuiView(APIView):
+    def get(self, request):
+        apps = _list_apps()
+        app = request.GET.get("app")
+
+        if not app and apps:
+            app = apps[0]
+
+        items = []
+
+        if app:
+            files = _list_backup_files(app)
+            for f in files:
+                stat = f.stat()
+                items.append({
+                    "filename": f.name,
+                    "path": str(f.relative_to(settings.BACKUP_ROOT)),
+                    "size": stat.st_mtime,
+                    "modified": datetime.fromtimestamp(stat.st_mtime)
+                })
+        
+        return render(request, "backup_gui.html", {
+            "apps": apps,
+            "active_app": app,
+            "items": items
+        })

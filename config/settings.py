@@ -10,36 +10,111 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+import os
 from pathlib import Path
+from dotenv import load_dotenv
 
+
+# ------------------------------------------------------------
+# BASE DATEIEN
+# ------------------------------------------------------------
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
+# ------------------------------------------------------------
+# UMGEBUNGSVARIABLEN LADEN
+# ------------------------------------------------------------
+load_dotenv(BASE_DIR / ".env")
 
+
+# ------------------------------------------------------------
+# STATISCHE DATEIEN
+# ------------------------------------------------------------
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/6.0/howto/static-files/
+
+STATIC_URL = [ BASE_DIR / "static" ]
+
+
+# ------------------------------------------------------------
+# SECRET_KEY LADEN
+# ------------------------------------------------------------
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-&*t5lrf!al18k&1*vyox!0hr%1(x4+1fzuy!r=_$k&2o7n1d*q'
+SECRET_KEY = os.getenv("SECRET_KEY")
+if not SECRET_KEY:
+    raise ValueError("SECRET_KEY fehlt")
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = []
+
+# ------------------------------------------------------------
+# HOST KONFIGURATION
+# ------------------------------------------------------------
+hosts = os.getenv("ALLOWED_HOSTS", "")
+ALLOWED_HOSTS = [h.strip() for h in hosts.split(",") if h.split()]
+
+
+# ------------------------------------------------------------
+# CSRF KONFIGURATION
+# ------------------------------------------------------------
+csrf = os.getenv("CSRF_TRUSTED_ORIGINS", "")
+CSRF_TRUSTED_ORIGINS = [c.strip() for c in csrf.split(",") if c.strip()]
+
+
+# ------------------------------------------------------------
+# CORS KONFIGURATION
+# ------------------------------------------------------------
+origins = os.getenv("CORS_ALLOWED_ORIGINS")
+CORS_ALLOWED_ORIGINS = [ o.strip() for o in origins.split(",") if o.strip()]
+
+header = os.getenv("CORS_ALLOW_HEADERS")
+CORS_ALLOW_HEADERS = [h.strip() for h in header.split(",") if h.strip()]
+
+
+# ------------------------------------------------------------
+# BACKUP_TOKEN KONFIGURATION
+# ------------------------------------------------------------
+BACKUP_TOKEN = os.getenv("BACKUP_TOKEN")
+
+
+# ------------------------------------------------------------
+# BACKUP_ROOT KONFIGURATION
+# ------------------------------------------------------------
+BACKUP_ROOT = Path(
+    os.getenv("BACKUP_ROOT", BASE_DIR / "backups")
+)
+
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'backups',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'core',
+    'rest_framework',
+    'corsheaders'
 ]
 
+REST_FRAMEWORK = {
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+        "rest_framework.renderers.BrowsableAPIRenderer"
+    ]
+}
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -69,13 +144,18 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+# ------------------------------------------------------------
+# DATABASE KONFIGURATION
+# ------------------------------------------------------------
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv("DB_NAME"),
+        'USER': os.getenv("DB_USER"),
+        'PASSWORD': os.getenv("DB_PASSWORD"),
+        'HOST': os.getenv("DB_HOST"),
+        'PORT': os.getenv("DB_PORT")
     }
 }
 
@@ -111,7 +191,3 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/6.0/howto/static-files/
-
-STATIC_URL = 'static/'

@@ -70,9 +70,6 @@ CSRF_TRUSTED_ORIGINS = [c.strip() for c in csrf.split(",") if c.strip()]
 # ------------------------------------------------------------
 # CORS KONFIGURATION
 # ------------------------------------------------------------
-origins = os.getenv("CORS_ALLOWED_ORIGINS")
-CORS_ALLOWED_ORIGINS = [ o.strip() for o in origins.split(",") if o.strip()]
-
 header = os.getenv("CORS_ALLOW_HEADERS")
 CORS_ALLOW_HEADERS = [h.strip() for h in header.split(",") if h.strip()]
 
@@ -157,6 +154,8 @@ DATABASES = {
         'PASSWORD': os.getenv("DB_PASSWORD"),
         'HOST': os.getenv("DB_HOST"),
         'PORT': os.getenv("DB_PORT")
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': BASE_DIR / 'db.sqlite3',
     }
 
 }

@@ -120,7 +120,6 @@ BACKUP_ROOT=/backups
 
 ALLOWED_HOSTS=localhost,127.0.0.1,192.168.178.98
 
-CORS_ALLOWED_ORIGINS=http://localhost:3000,http://127.0.0.1:3000
 CORS_ALLOW_HEADERS=authorization,content-type,user-agent,x-csrftoken,x-requested-with,accept
 
 CSRF_TRUSTED_ORIGINS=http://127.0.0.1:8000

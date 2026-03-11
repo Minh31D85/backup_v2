@@ -73,6 +73,7 @@ def _cleanup_old_backups(app: str, keep: int = 5) -> int:
 
 
 class HealthView(APIView):
+    
     def get(self, request):
         return Response({'status': 'ok'})
     

@@ -34,8 +34,11 @@ load_dotenv(BASE_DIR / ".env")
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = [ BASE_DIR / "static" ]
+STATIC_URL = "/static/" 
 
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
+]
 
 # ------------------------------------------------------------
 # SECRET_KEY LADEN
@@ -54,7 +57,7 @@ DEBUG = os.getenv("DEBUG", "False") == "True"
 # HOST KONFIGURATION
 # ------------------------------------------------------------
 hosts = os.getenv("ALLOWED_HOSTS", "")
-ALLOWED_HOSTS = [h.strip() for h in hosts.split(",") if h.split()]
+ALLOWED_HOSTS = [h.strip() for h in hosts.split(",") if h.strip()]
 
 
 # ------------------------------------------------------------
@@ -92,8 +95,6 @@ BACKUP_ROOT = Path(
 # Application definition
 
 INSTALLED_APPS = [
-    'backups',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -101,7 +102,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'core',
+    'backups',
     'rest_framework',
     'corsheaders'
 ]
@@ -157,6 +158,7 @@ DATABASES = {
         'HOST': os.getenv("DB_HOST"),
         'PORT': os.getenv("DB_PORT")
     }
+
 }
 
 

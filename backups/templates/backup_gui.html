@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <title>Backup GUI</title>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+
+    <body>
+        <div class="container">
+            <h2>Backup GUI</h2>
+            <h3>Apps</h3>
+            <ul class="app-list">
+                {% for a in apps %}
+                <li>
+                    <a href="?app={{ a }}">{{ a }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+
+            {% if active_app %}
+            <h3>Backups von {{ active_app }}</h3>
+
+            <table class="backup-table">
+                <tr>
+                    <th>Datei</th>
+                    <th>Größe</th>
+                    <th>Geändert</th>
+                    <th>Aktion</th>
+                </tr>
+
+                {% for f in items %}
+                <tr>
+                    <td>{{ f.filename }}</td>
+                    <td>{{ f.size }}</td>
+                    <td>{{ f.modified }}</td>
+                    <td>
+                        <button onclick="deleteBackup('{{ f.path }}')">Löschen</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% endif %}
+        </div>
+        <script src="{% static 'app.js' %}"></script>
+    </body>
+</html>
+

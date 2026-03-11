@@ -102,7 +102,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'backups',
+    'app',
     'rest_framework',
     'corsheaders'
 ]

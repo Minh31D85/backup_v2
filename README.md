@@ -157,6 +157,7 @@ sudo docker exec -it ai_code python manage.py migrate
 ---
 
 ## Open web gui
+The backend provides a simple web interface to manage stored backups.
 ```bash
 http://HOST_IP:HOST_PORT/gui/
 ```

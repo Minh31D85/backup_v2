@@ -156,6 +156,13 @@ sudo docker exec -it backup python manage.py migrate
 
 ---
 
+## Static sammeln
+```bash
+sudo docker exec -it backup python manage.py collectstatic
+```
+
+---
+
 ## Open web gui
 The backend provides a simple web interface to manage stored backups.
 ```bash

@@ -103,7 +103,7 @@ services:
     env_file:
       - .env
     ports:
-      - "8000:8000"
+      - "${HOST_PORT}$:8000"
     volumes:
       - ./backups:/backups
     networks:
@@ -125,12 +125,11 @@ cat <<'EOF' > .env
 DEBUG=False
 
 SECRET_KEY=CHANGE_ME_TO_LONG_RANDOM_SECRET
-BACKUP_TOKEN=6>K?56KmfGw8f
+BACKUP_TOKEN=CHANGE_ME
 
 BACKUP_ROOT=/backups
 
-ALLOWED_HOSTS=localhost,127.0.0.1,192.168.178.98
-
+ALLOWED_HOSTS=localhost,127.0.0.1,HOST_IP
 CORS_ALLOW_HEADERS=authorization,content-type,user-agent,x-csrftoken,x-requested-with,accept
 
 CSRF_TRUSTED_ORIGINS=http://127.0.0.1:8000

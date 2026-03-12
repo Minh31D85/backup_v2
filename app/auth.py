@@ -1,6 +1,7 @@
 from rest_framework.authentication import BaseAuthentication
 from rest_framework.exceptions import AuthenticationFailed
 from django.conf import settings
+from django.contrib.auth.models import AnonymousUser
 
 class BackupAuth(BaseAuthentication):
     def authenticate(self, request):
@@ -20,4 +21,4 @@ class BackupAuth(BaseAuthentication):
         if token != settings.BACKUP_TOKEN:
             raise AuthenticationFailed("Invalid token")
 
-        return super().authenticate(request)
+        return (AnonymousUser(), None)

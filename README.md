@@ -59,7 +59,7 @@ FROM python:3.12-slim
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-# TrueNAS / ZFS Fix für uv
+# ZFS Fix für uv
 ENV UV_LINK_MODE=copy
 ENV UV_CONCURRENT_INSTALLS=1
 
@@ -68,7 +68,7 @@ WORKDIR /app
 # uv installieren
 RUN pip install --no-cache-dir uv
 
-# Dependency Dateien zuerst kopieren
+# Dependency Dateien kopieren
 COPY pyproject.toml uv.lock ./
 
 # Dependencies installieren

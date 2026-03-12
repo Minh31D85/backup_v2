@@ -1,9 +1,20 @@
+function getCSRFToken() {
+    const name = "csrftoken"
+    const cookies = document.cookie.split(";");
+
+    for (let cookie of cookies) {
+        cookie = cookie.trim();
+        if(cookie.startsWith(name + "=")) return cookie.substring(name.length + 1);
+    }
+    return "";
+}
+
 function deleteBackup(path){
     fetch("/api/backups/delete/",{
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "X-CSRFToken": "{{ csrf_token }}"
+            "X-CSRFToken": getCSRFToken()
         },
         body: JSON.stringify({ path: path})
     })

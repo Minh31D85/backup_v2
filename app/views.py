@@ -241,6 +241,7 @@ class BackupDeleteView(APIView):
         return Response({"message": "delete", "path": rel_path}, status=status.HTTP_200_OK )
     
 
+
 class BackupGuiView(APIView):
     def get(self, request):
         apps = _list_apps()
@@ -253,12 +254,17 @@ class BackupGuiView(APIView):
 
         if app:
             files = _list_backup_files(app)
-            for f in files:
-                stat = f.stat()
+            for file_path in files:
+                stat = file_path.stat()
+                try:
+                    relative_path = file_path.relative_to(settings.BACKUP_ROOT)
+                except Exception:
+                    continue
+
                 items.append({
-                    "filename": f.name,
-                    "path": str(f.relative_to(settings.BACKUP_ROOT)),
-                    "size": stat.st_mtime,
+                    "filename": file_path.name,
+                    "path": str(relative_path),
+                    "size": stat.st_size,
                     "modified": datetime.fromtimestamp(stat.st_mtime)
                 })
         

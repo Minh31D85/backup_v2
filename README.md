@@ -1,27 +1,46 @@
 # Backup
 
+This backend service stores **JSON backups from multiple frontend applications** on a server.
+
+Each frontend can send backup data to this service, which stores the data as JSON files in a persistent storage directory.
+
+The service also maintains metadata in a PostgreSQL database.
+
+Typical use cases:
+
+- mobile app backups
+- configuration backups
+- user generated data
+- device synchronization
+
+---
+
 # Badges
 
 ![Python](https://img.shields.io/badge/python-3.12-blue)
+![Django](https://img.shields.io/badge/framework-django-green)
 ![Docker](https://img.shields.io/badge/docker-supported-blue)
 ![PostgreSQL](https://img.shields.io/badge/database-postgresql-blue)
+![uv](https://img.shields.io/badge/package_manager-uv-purple)
+
+---
 
 ## Architektur
 ```text
-Client
-  │
-  │ HTTP
-  ▼
+Client Applications
+       │
+       │ HTTP / API
+       ▼
 Docker Container (backup)
-  │
-  ├── Django Application
-  │       └── Gunicorn WSGI
-  │
-  ├── PostgreSQL (external container)
-  │       └── Database storage
-  │
-  └── Backup Storage
-          └── /backups
+       │
+       ├── Django Application
+       │       └── Gunicorn WSGI Server
+       │
+       ├── PostgreSQL (separate container)
+       │       └── storage
+       │
+       └── Backup Storage
+               └── /backups (host mounted volume)
 ```
 
 ---

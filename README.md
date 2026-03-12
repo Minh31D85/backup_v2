@@ -4,15 +4,6 @@ This backend service stores **JSON backups from multiple frontend applications**
 
 Each frontend can send backup data to this service, which stores the data as JSON files in a persistent storage directory.
 
-The service also maintains metadata in a PostgreSQL database.
-
-Typical use cases:
-
-- mobile app backups
-- configuration backups
-- user generated data
-- device synchronization
-
 ---
 
 # Badges

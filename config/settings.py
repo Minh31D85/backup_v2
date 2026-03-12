@@ -74,6 +74,9 @@ CSRF_TRUSTED_ORIGINS = [c.strip() for c in csrf.split(",") if c.strip()]
 # ------------------------------------------------------------
 # CORS KONFIGURATION
 # ------------------------------------------------------------
+all_origins = os.getenv("CORS_ALLOW_ALL_ORIGINS")
+CORS_ALLOW_ALL_ORIGINS = [ao.strip() for ao in all_origins.split(",") if ao.strip()]
+
 header = os.getenv("CORS_ALLOW_HEADERS")
 CORS_ALLOW_HEADERS = [h.strip() for h in header.split(",") if h.strip()]
 

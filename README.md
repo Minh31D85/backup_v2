@@ -122,6 +122,7 @@ networks:
   postgres_network:
     external: true
 EOF
+```
 
 ---
 
@@ -150,3 +151,23 @@ DB_HOST=postgres
 DB_PORT=5432
 EOF
 ```
+
+---
+
+## Execute migration
+```bash
+sudo docker exec -it ai_code python manage.py makemigrations
+sudo docker exec -it ai_code python manage.py migrate
+```
+
+**makemigration** analyzes changes in the Django models and creates migration files.
+
+**migrate** executes the created migrations in the database.
+
+---
+
+## Open web gui
+```bash
+http://HOST_IP:HOST_PORT/gui/
+```
+

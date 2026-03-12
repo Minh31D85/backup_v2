@@ -216,7 +216,6 @@ class BackupImportView(APIView):
     
 
 class BackupDeleteView(APIView):
-    authentication_classes = [BackupAuth]
 
     def post(self, request):
         rel_path = request.data.get("path")

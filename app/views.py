@@ -224,10 +224,10 @@ class BackupDeleteView(APIView):
             return Response({"message": "Missing field: path"}, status=status.HTTP_400_BAD_REQUEST)
         
         root = Path(settings.BACKUP_ROOT).resolve()
-        file_path = (root / rel_path).reslove()
+        file_path = (root / rel_path).resolve()
 
         if not file_path.exists():
-            return Response({"File not found"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"message": "File not found"}, status=status.HTTP_404_NOT_FOUND)
         
         if not str(file_path).startswith(str(root)):
             return Response({"message": "Invalid path"}, status=status.HTTP_400_BAD_REQUEST)

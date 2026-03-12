@@ -146,8 +146,8 @@ EOF
 
 ## Execute migration
 ```bash
-sudo docker exec -it ai_code python manage.py makemigrations
-sudo docker exec -it ai_code python manage.py migrate
+sudo docker exec -it backup python manage.py makemigrations
+sudo docker exec -it backup python manage.py migrate
 ```
 
 **makemigration** analyzes changes in the Django models and creates migration files.

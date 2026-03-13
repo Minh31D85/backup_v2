@@ -4,6 +4,13 @@ This backend service stores **JSON backups from multiple frontend applications**
 
 Each frontend can send backup data to this service, which stores the data as JSON files in a persistent storage directory.
 
+Built with:
+
+- **Django / Django REST** – Backend and API
+- **PostgreSQL** – Persistent database
+- **Docker** – Containerized deployment
+- **uv** – Python dependency manager
+
 ---
 
 # Badges

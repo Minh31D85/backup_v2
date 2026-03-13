@@ -16,7 +16,7 @@ Each frontend can send backup data to this service, which stores the data as JSO
 ![JavaScript](https://img.shields.io/badge/JavaScript-language-F7DF1E?logo=javascript&logoColor=black)
 ![HTML](https://img.shields.io/badge/HTML-markup-E34F26?logo=html5&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS-style-1572B6?logo=css3&logoColor=white)
-![License](https://img.shields.io/badge/license-MIT-green)
+![License](https://img.shields.io/badge/license-all_rights_reserved-red)
 
 ---
 
@@ -188,3 +188,17 @@ The backend provides a simple web interface to manage stored backups.
 http://HOST_IP:HOST_PORT/gui/
 ```
 
+## License
+
+This project is not open source.
+
+All rights reserved.  
+
+The source code is provided for viewing purposes only.
+
+You are not permitted to:
+
+- copy the code
+- reuse the code
+- redistribute the code
+- use the code commercially

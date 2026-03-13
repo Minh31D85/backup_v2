@@ -96,10 +96,9 @@ BACKUP_ROOT = Path(
     os.getenv("BACKUP_ROOT", BASE_DIR / "backups")
 )
 
-
-
+# ------------------------------------------------------------
 # Application definition
-
+# ------------------------------------------------------------
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -113,11 +112,21 @@ INSTALLED_APPS = [
     'corsheaders'
 ]
 
+
+# ------------------------------------------------------------
+# REST_FRAMEWORK KONFIGURATION
+# ------------------------------------------------------------
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": [
         "rest_framework.renderers.JSONRenderer",
         "rest_framework.renderers.BrowsableAPIRenderer"
-    ]
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": (
+        "rest_framework.permissions.IsAuthenticated"
+    )
 }
 
 MIDDLEWARE = [

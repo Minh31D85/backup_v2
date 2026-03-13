@@ -9,9 +9,12 @@ from pathlib import Path
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status,viewsets
+from rest_framework.permissions import IsAuthenticated
 
 from .auth import BackupAuth
+from .models import PasswordItem
+from .serializers import PasswordItemSerializer
 
 
 def _list_apps() -> list[str]:
@@ -61,7 +64,7 @@ def _cleanup_old_backups(app: str, keep: int = 5) -> int:
     
     files_sorted = sorted(files, key=lambda f: f.stat().st_mtime, reverse=True)
 
-    delete = 0
+    deleted = 0
     for f in files_sorted[keep:]:
         try:
             f.unlink()
@@ -205,7 +208,7 @@ class BackupImportView(APIView):
         except Exception:
             return Response({"message": "Invalid JSON file"}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         
-        for k in ["app", "schemaVersion", "exportedAt", "payload"]:
+        for k in ["app", "schemaVersion", "exportAt", "payload"]:
             if k not in obj:
                 return Response({"message": f"Missing key in backup file: {k}"}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
             
@@ -274,3 +277,13 @@ class BackupGuiView(APIView):
         })
     
 
+class PasswordViewSet(viewsets.ModelViewSet):
+    serializer_class = PasswordItemSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+
+        return PasswordItem.objects.filter(
+            group__application__user=user
+        )

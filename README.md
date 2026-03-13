@@ -165,6 +165,10 @@ DB_USER=backup_user
 DB_PASSWORD=CHANGE_ME
 DB_HOST=postgres
 DB_PORT=5432
+
+SUPERUSER_USERNAME=admin
+SUPERUSER_PASSWORD=admin123
+SUPERUSER_EMAIL=admin@example.com
 EOF
 ```
 
@@ -180,6 +184,12 @@ sudo docker exec -it backup python manage.py migrate
 
 **migrate** executes the created migrations in the database.
 
+---
+
+## create superuser
+```bash
+sudo docker compose exec web python manage.py seed_users
+```
 ---
 
 ## Static sammeln

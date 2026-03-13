@@ -50,6 +50,21 @@ Docker Container (backup)
 
 ---
 
+## Security Notice
+
+Do **NOT** commit the following files:
+
+.env
+/backups
+
+The **.env** file contains secrets such as:
+
+SECRET_KEY
+BACKUP_TOKEN
+DATABASE_PASSWORD
+
+---
+
 ## Create Dockerfile
 Copy and paste the following command into your terminal to create the Dockerfile.
 ```bash
@@ -103,7 +118,7 @@ services:
     env_file:
       - .env
     ports:
-      - "${HOST_PORT}$:8000"
+      - "${HOST_PORT}:8000"
     volumes:
       - ./backups:/backups
     networks:
@@ -119,7 +134,7 @@ EOF
 
 ## Create environment
 Copy and paste the following command into your terminal to create the `.env` file.
-Make sure to adjust the configuration values according to your environment.
+Make sure to adjust the configuration values according to your environment. **.env** should never be committed to git.
 ```bash
 cat <<'EOF' > .env
 DEBUG=False
@@ -129,14 +144,14 @@ BACKUP_TOKEN=CHANGE_ME
 
 BACKUP_ROOT=/backups
 
-ALLOWED_HOSTS=localhost,127.0.0.1,HOST_IP
+ALLOWED_HOSTS=localhost,127.0.0.1,<HOST_IP>
 CORS_ALLOW_HEADERS=authorization,content-type,user-agent,x-csrftoken,x-requested-with,accept
 
 CSRF_TRUSTED_ORIGINS=http://127.0.0.1:8000
 
 DB_NAME=backup_db
 DB_USER=backup_user
-DB_PASSWORD=password
+DB_PASSWORD=CHANGE_ME
 DB_HOST=postgres
 DB_PORT=5432
 EOF

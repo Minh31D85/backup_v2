@@ -192,7 +192,7 @@ http://HOST_IP:HOST_PORT/gui/
 
 This project is not open source.
 
-All rights reserved.  
+All rights reserved.
 
 The source code is provided for viewing purposes only.
 

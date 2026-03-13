@@ -16,6 +16,7 @@ Each frontend can send backup data to this service, which stores the data as JSO
 ![JavaScript](https://img.shields.io/badge/JavaScript-language-F7DF1E?logo=javascript&logoColor=black)
 ![HTML](https://img.shields.io/badge/HTML-markup-E34F26?logo=html5&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS-style-1572B6?logo=css3&logoColor=white)
+![License](https://img.shields.io/badge/license-MIT-green)
 
 ---
 

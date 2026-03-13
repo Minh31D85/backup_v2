@@ -8,11 +8,14 @@ Each frontend can send backup data to this service, which stores the data as JSO
 
 # Badges
 
-![Python](https://img.shields.io/badge/python-3.12-blue)
-![Django](https://img.shields.io/badge/framework-django-green)
-![Docker](https://img.shields.io/badge/docker-supported-blue)
-![PostgreSQL](https://img.shields.io/badge/database-postgresql-blue)
+![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
+![Django](https://img.shields.io/badge/Django-framework-092E20?logo=django&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-supported-2496ED?logo=docker&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-database-4169E1?logo=postgresql&logoColor=white)
 ![uv](https://img.shields.io/badge/package_manager-uv-purple)
+![JavaScript](https://img.shields.io/badge/JavaScript-language-F7DF1E?logo=javascript&logoColor=black)
+![HTML](https://img.shields.io/badge/HTML-markup-E34F26?logo=html5&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS-style-1572B6?logo=css3&logoColor=white)
 
 ---
 

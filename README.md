@@ -58,13 +58,13 @@ Docker Container (backup)
 Do **NOT** commit the following files:
 
 .env
+
 /backups
+
 
 The **.env** file contains secrets such as:
 
-SECRET_KEY
-BACKUP_TOKEN
-DATABASE_PASSWORD
+SECRET_KEY, BACKUP_TOKEN, DATABASE_PASSWORD
 
 ---
 

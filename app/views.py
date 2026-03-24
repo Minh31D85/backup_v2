@@ -78,7 +78,7 @@ def _cleanup_old_backups(app: str, keep: int = 5) -> int:
 class HealthView(APIView):
     authentication_classes = []
     permission_classes = [AllowAny]
-    
+
     def get(self, request):
         return Response({'status': 'ok'})
     
@@ -228,6 +228,8 @@ class BackupImportView(APIView):
     
 
 class BackupDeleteView(APIView):
+    authentication_classes = []
+    permission_classes = [AllowAny]
 
     def post(self, request):
         rel_path = request.data.get("path")
@@ -254,6 +256,9 @@ class BackupDeleteView(APIView):
 
 
 class BackupGuiView(APIView):
+    authentication_classes = []
+    permission_classes = [AllowAny]
+
     def get(self, request):
         apps = _list_apps()
         app = request.GET.get("app")

@@ -188,7 +188,7 @@ sudo docker exec -it backup python manage.py migrate
 
 ## create superuser
 ```bash
-sudo docker compose exec web python manage.py seed_users
+sudo docker compose exec backup python manage.py seed_users
 ```
 ---
 

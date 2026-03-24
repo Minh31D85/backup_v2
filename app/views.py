@@ -10,7 +10,7 @@ from pathlib import Path
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status,viewsets
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from .auth import BackupAuth
 from .models import PasswordItem
@@ -83,6 +83,7 @@ class HealthView(APIView):
 
 class BackupListView(APIView):
     authentication_classes = [BackupAuth]
+    permission_classes = [AllowAny]
 
     def get(self, request):
         app = request.query_params.get("app")
@@ -109,6 +110,7 @@ class BackupListView(APIView):
 
 class BackupLatestView(APIView):
     authentication_classes = [BackupAuth]
+    permission_classes = [AllowAny]
 
     def get(self, request):
         app = request.query_params.get("app")
@@ -133,6 +135,7 @@ class BackupLatestView(APIView):
 
 class BackupExportView(APIView):
     authentication_classes = [BackupAuth]
+    permission_classes = [AllowAny]
 
     def post(self, request):
         data = request.data
@@ -183,6 +186,7 @@ class BackupExportView(APIView):
 
 class BackupImportView(APIView):
     authentication_classes = [BackupAuth]
+    permission_classes = [AllowAny]
 
     def post(self, request):
         data = request.data
@@ -207,6 +211,9 @@ class BackupImportView(APIView):
             obj = json.loads(raw)
         except Exception:
             return Response({"message": "Invalid JSON file"}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+        
+        if "exportAt" not in obj and "exportedAt" in obj:
+            obj["exportAt"] = obj ["exportedAt"]
         
         for k in ["app", "schemaVersion", "exportAt", "payload"]:
             if k not in obj:
@@ -279,7 +286,7 @@ class BackupGuiView(APIView):
 
 class PasswordViewSet(viewsets.ModelViewSet):
     serializer_class = PasswordItemSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def get_queryset(self):
         user = self.request.user
